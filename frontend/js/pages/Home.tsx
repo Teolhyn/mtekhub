@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import ChemicalTable from "../components/chemicaltable";
+import ChemicalOrderModal from "../components/chemicalordermodal";
 
 import cookie from "cookie";
 import { RestService } from "../api";
@@ -79,41 +81,15 @@ const Home = () => {
 
   return (
     <>
-      <h2>Rest API</h2>
+      <h2 className="bg-cyan-500">Rest API</h2>
       <p>{restCheck?.message}</p>
 
       {/* Display list of chemical orders in a table */}
       <h3>Chemical Orders</h3>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Chemical Name</th>
-            <th>CAS Number</th>
-            <th>Orderer</th>
-          </tr>
-        </thead>
-        <tbody>
-          {chemicalOrders.length > 0 ? (
-            chemicalOrders.map((order, index) => (
-              <tr key={index}>
-                <td>{order.chemical_name}</td>
-                <td>{order.cas_number}</td>
-                <td>{order.orderer}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={3}>No chemical orders available.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <ChemicalTable orders={chemicalOrders} />
 
       {/* Button to open the request form */}
-      <Button variant="primary" onClick={() => setShowForm(true)}>
-        Request Order
-      </Button>
-
+      <ChemicalOrderModal />
       {/* Modal for adding a new chemical order */}
       <Modal show={showForm} onHide={() => setShowForm(false)}>
         <Modal.Header closeButton>
@@ -160,14 +136,6 @@ const Home = () => {
           </Form>
         </Modal.Body>
       </Modal>
-
-      <Button variant="outline-dark" onClick={() => setShowBugComponent(true)}>
-        Click to test if Sentry is capturing frontend errors! (Should only work
-        in Production)
-      </Button>
-      {/* NOTE: The next line intentionally contains an error for testing frontend errors in Sentry. */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {showBugComponent && (showBugComponent as any).field.notexist}
     </>
   );
 };

@@ -14,6 +14,7 @@ OpenAPI.interceptors.request.use((request) => {
 
 const App = () => (
   <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
+    <div className="bg-blue-500"> asd</div>
     <Home />
   </Sentry.ErrorBoundary>
 );
