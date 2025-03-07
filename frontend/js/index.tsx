@@ -12,4 +12,12 @@ Sentry.init({
 });
 
 const root = createRoot(document.getElementById("react-app") as HTMLElement);
-root.render(<App />);
+root.render(
+  <div className="bg-black h-screen tracking-tighter">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+    </style>
+
+    <App />
+  </div>
+);
