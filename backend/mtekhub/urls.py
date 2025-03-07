@@ -12,7 +12,6 @@ from rest_framework.routers import DefaultRouter
 from users.routes import routes as users_routes
 from chemicalorder.routes import routes as chemicalorder_routes
 
-
 router = DefaultRouter()
 
 routes = common_routes + users_routes + chemicalorder_routes
@@ -20,7 +19,6 @@ for route in routes:
     router.register(route["regex"], route["viewset"], basename=route["basename"])
 
 urlpatterns = [
-    path("", include("common.urls"), name="common"),
     path("admin/", admin.site.urls, name="admin"),
     path("admin/defender/", include("defender.urls")),
     path("jsreverse/", django_js_reverse.views.urls_js, name="js_reverse"),
@@ -37,4 +35,6 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
+
+    path("", include("common.urls"), name="common"),
 ]
